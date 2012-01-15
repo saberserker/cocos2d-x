@@ -1,4 +1,5 @@
 #include "HelloWorldScene.h"
+#include <android/log.h>
 
 USING_NS_CC;
 
@@ -49,11 +50,12 @@ bool HelloWorld::init()
 
 	// add a label shows "Hello World"
 	// create and initialize a label
-    CCLabelTTF* pLabel = CCLabelTTF::labelWithString("Hello World", "Arial", 24);
+    CCLabelTTF* pLabel = CCLabelTTF::labelWithString("Hello World!", "Arial", 24);
 	// ask director the window size
 	CCSize size = CCDirector::sharedDirector()->getWinSize();
 
 	// position the label on the center of the screen
+    //CCLabelTTF* pLabel = CCLabelTTF::labelWithString("Hello World", "Arial", 24);
 	pLabel->setPosition( ccp(size.width / 2, size.height - 50) );
 
 	// add the label as a child to this layer
@@ -67,7 +69,9 @@ bool HelloWorld::init()
 
 	// add the sprite as a child to this layer
 	this->addChild(pSprite, 0);
-	
+
+    this->setIsTouchEnabled(true);
+
 	return true;
 }
 
@@ -79,3 +83,30 @@ void HelloWorld::menuCloseCallback(CCObject* pSender)
 	exit(0);
 #endif
 }
+
+//Below is crap that *I* added
+
+void HelloWorld::ccTouchesMoved(CCSet* touches, CCEvent *pEvent){
+    renderPointsUpdate(touches); 
+        CCLabelTTF* pLabel = CCLabelTTF::labelWithString("X", "Arial", 24);
+        pLabel->setPosition( ccp(100,100));
+        this->addChild(pLabel);
+}
+
+void HelloWorld::renderPointsUpdate(CCSet* touches) {
+    CCLabelTTF* pLabel;
+    renderPoints.clear(); 
+    //__android_log_print(ANDROID_LOG_VERBOSE, "dickbar", "update!");
+    for(CCSetIterator i = touches->begin(); i!= touches->end(); i++) {
+        CCTouch* pTouch = (CCTouch*)*i;
+        CCPoint whateverPoint = pTouch->locationInView(pTouch->view());
+        renderPoints.push_back(whateverPoint);
+        
+        pLabel = CCLabelTTF::labelWithString("X", "Arial", 24);
+        pLabel->setPosition( whateverPoint );
+        this->addChild( pLabel);
+        //__android_log_print(ANDROID_LOG_VERBOSE, "dickbar", "x:%f,y:%f",
+        //       whateverPoint.x,whateverPoint.y );
+    }
+}
+

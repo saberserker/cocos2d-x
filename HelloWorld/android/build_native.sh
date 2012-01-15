@@ -1,7 +1,7 @@
 # set params
-ANDROID_NDK_ROOT=/cygdrive/d/programe/android/ndk/android-ndk-r6b
-COCOS2DX_ROOT=/cygdrive/e/cocos2d-x
-HELLOWORLD_ROOT=$COCOS2DX_ROOT/HelloWorld/android
+ANDROID_NDK_ROOT=/Users/htsang/lib/android-ndk-r6b
+COCOS2DX_ROOT=/Users/htsang/gitrepos/cocos2d-x
+HELLOWORLD_ROOT=/Users/htsang/gitrepos/cocos2d-x/HelloWorld/android
 
 # make sure assets is exist
 if [ -d $HELLOWORLD_ROOT/assets ]; then
